@@ -43,7 +43,7 @@ function HomeScreen() {
                 <div className="hero-background">
                     <div className='heroTextBackground container'>
                         <div className="heroItems">
-                            <h1>Welcome to Our <br /> Food Waste Management System</h1>
+                            <h1>Welcome to Our <br /> Food Waste Reduction System</h1>
                             <p className="lead">We provide innovative solutions to manage food waste efficiently.</p>
                             <Link className="btn btn-primary btn-lg buttonColor" to="/signup">Get Started</Link>
                         </div>
