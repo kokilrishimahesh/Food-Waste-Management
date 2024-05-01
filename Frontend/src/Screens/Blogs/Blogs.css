@@ -1,0 +1,89 @@
+.blog-home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.btn {
+    display: inline-block;
+    padding: 20px 40px;
+    margin: 10px;
+    font-size: 18px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.read-blogs-btn {
+    width: 300px;
+}
+
+.blogButton {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 400;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.blogButton:hover {
+    background-color: #0056b3;
+    color: #fff;
+    border-color: #0056b3;
+}
+.blog-title{
+    font-size: 48px;
+    text-align: center;
+}
+
+
+.write-blog-btn {
+    width: 300px;
+}
+
+.Blogsbutton {
+    background-color: transparent;
+    border: 2px solid black;
+    color: black;
+    display: flex;
+    padding: 20px 0px;
+    width: 200px;
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.blogsList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { RiDashboard2Fill, RiUserFill, RiDonutChartFill, RiMessage2Fill, RiSettings2Fill, RiCheckboxCircleFill } from 'react-icons/ri'; // Updated import with correct icon
+import { Home, Donut, MonitorPlay, MessageSquare, Settings, UserRound, Book } from 'lucide-react'; // Updated import with Lucid icons
 
 import './Sidebar.css';
 
@@ -10,43 +10,50 @@ const Sidebar = () => {
       <ul>
         <li>
           <Link to="dashboard" className="sidebar-link">
-            <RiDashboard2Fill className="sidebar-icon" />
+            <Home className="sidebar-icon" />
             Home
           </Link>
         </li>
         <li>
           <Link to="donation" className="sidebar-link">
-            <RiDonutChartFill className="sidebar-icon" />
+            <Donut className="sidebar-icon" />
             Donation
           </Link>
         </li>
         {/* New button for Donation list */}
         <li>
           <Link to="donationlist" className="sidebar-link">
-            <RiCheckboxCircleFill className="sidebar-icon" />
+            <MonitorPlay className="sidebar-icon" />
             Donation List
           </Link>
         </li>
         <li>
           <Link to="Edu" className="sidebar-link">
-            <RiMessage2Fill className="sidebar-icon" />
-            Edu
+            <MessageSquare className="sidebar-icon" />
+            Videos
           </Link>
         </li>
+        {/* New button for Blogs */}
+        <li>
+          <Link to="blog" className="sidebar-link">
+            <Book className="sidebar-icon" />
+            Blogs
+          </Link>
+        </li>
+        <hr />
         <li>
           <Link to="profile" className="sidebar-link">
-            <RiUserFill className="sidebar-icon" />
+            <UserRound className="sidebar-icon" />
             Profile
           </Link>
         </li>
-
         <li>
           <Link to="settings" className="sidebar-link">
-            <RiSettings2Fill className="sidebar-icon" />
+            <Settings className="sidebar-icon" />
             Settings
           </Link>
         </li>
-
+        
       </ul>
     </div>
   );

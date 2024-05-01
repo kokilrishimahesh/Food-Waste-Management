@@ -10,6 +10,10 @@ import Dashboard from './Screens/Dashboard/Dashboard';
 import DonationScreen from './Screens/Donation/Donation';
 import DonationsList from './Screens/DonationList/DonationList';
 import YouTubeVideos from './Components/YoutubeVideos';
+import BlogHome from "./Screens/Blogs/BlogHome";
+import BlogList from "./Screens/Blogs/BlogList";
+import Blog from "./Screens/Blogs/Blog";
+import BlogPost from "./Screens/Blogs/BlogPost";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +50,22 @@ const router = createBrowserRouter([
         element : <YouTubeVideos />
       },
       {
+        path : 'blog',
+        element : <BlogHome />
+      },
+      {
+        path : 'blogPost',
+        element : <BlogPost />
+      },
+      {
+        path : 'blogList',
+        element : <BlogList />
+      },
+      {
+        path : 'blogs/:id',
+        element : <Blog />
+      },
+      {
         path : 'settings',
       },
     ]
@@ -62,3 +82,4 @@ function App() {
 }
 
 export default App
+

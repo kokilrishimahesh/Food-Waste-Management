@@ -5,6 +5,8 @@ import bcrypt from 'bcrypt';
 import User from './MongoDBModels/User.js';
 import UserProfile from './MongoDBModels/UserProfile.js';
 import Donation from './MongoDBModels/Donation.js';
+import Blog from './MongoDBModels/Blog.js';
+
 const app = express();
 
 app.use(cors());
@@ -29,7 +31,7 @@ app.post('/login', async (req, res) => {
             // If passwords don't match, return 401 with a message
             return res.status(401).json({ message: 'Invalid credentials' });
         }
-        
+
         // If login is successful, find the user profile
         const userProfile = await UserProfile.findOne({ user: user._id });
 
@@ -49,7 +51,7 @@ app.post('/login', async (req, res) => {
 
 
 app.post('/signup', async (req, res) => {
-    const { role , Fullname, email, password } = req.body;
+    const { role, Fullname, email, password } = req.body;
 
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -60,14 +62,14 @@ app.post('/signup', async (req, res) => {
             password: hashedPassword,
         });
 
-    
+
         const savedUser = await newUser.save();
 
-        
+
         const newUserProfile = new UserProfile({
-            role : role,
+            role: role,
             fullName: Fullname,
-            user: savedUser._id, 
+            user: savedUser._id,
         });
 
         const savedUserProfile = await newUserProfile.save();
@@ -75,7 +77,7 @@ app.post('/signup', async (req, res) => {
         res.status(201).json({
             message: 'User registered successfully',
             user: savedUser._id,
-            role : role
+            role: role
         });
     } catch (error) {
         console.error('User registration error:', error);
@@ -95,7 +97,7 @@ app.post("/donation", async (req, res) => {
         location
     } = req.body;
 
-    const userId = req.headers.userid; 
+    const userId = req.headers.userid;
 
     try {
         const profile = await UserProfile.findOne({ user: userId });
@@ -104,7 +106,7 @@ app.post("/donation", async (req, res) => {
             return res.status(404).json({ message: 'User profile not found for the provided userId' });
         }
 
-        
+
         const newDonation = new Donation({
             type,
             quantity,
@@ -146,7 +148,7 @@ app.get('/donationRequest', async (req, res) => {
         }
 
         // Retrieve all donations associated with the user profile
-        const donations = await Donation.find({ userProfile: profile._id, RequestStatus : true});
+        const donations = await Donation.find({ userProfile: profile._id, RequestStatus: true });
 
         res.status(200).json({
             message: 'Donations retrieved successfully',
@@ -169,7 +171,7 @@ app.get('/donationHistory', async (req, res) => {
             return res.status(404).json({ message: 'User profile not found for the provided userId' });
         }
 
-        const donations = await Donation.find({ 
+        const donations = await Donation.find({
             userProfile: profile._id,
             RequestStatus: { $in: ['Pending', 'Accepted'] }
         });
@@ -185,8 +187,56 @@ app.get('/donationHistory', async (req, res) => {
 });
 
 
+app.post('/blog', async (req, res) => {
+    const { title, author, content } = req.body;
 
+    try {
+        // Create a new Blog document using the Blog model
+        const newBlog = new Blog({
+            title,
+            author,
+            content
+        });
 
+        // Save the new Blog document to the database
+        const savedBlog = await newBlog.save();
+
+        res.status(201).json(savedBlog); // Respond with the saved blog post
+    } catch (error) {
+        console.error('Error saving blog post:', error);
+        res.status(500).json({ message: 'Failed to save blog post' });
+    }
+});
+
+app.get('/blogs', async (req, res) => {
+    try {
+        // Fetch all blogs from the database, but only select specific fields
+        const blogs = await Blog.find({}, 'title author createdAt');
+
+        res.status(200).json(blogs); // Respond with the selected fields of all blogs
+    } catch (error) {
+        console.error('Error fetching blogs:', error);
+        res.status(500).json({ message: 'Failed to fetch blogs' });
+    }
+});
+
+app.get('/blogs/:id', async (req, res) => {
+    const { id } = req.params; // Extract blog ID from URL parameters
+
+    try {
+        // Find a blog by its ID in the database
+        const blog = await Blog.findById(id);
+
+        if (!blog) {
+            return res.status(404).json({ message: 'Blog not found' });
+        }
+
+        res.status(200).json(blog); // Respond with the details of the blog
+    } catch (error) {
+        console.error('Error fetching blog by ID:', error);
+        res.status(500).json({ message: 'Failed to fetch blog' });
+    }
+});
 
 
 

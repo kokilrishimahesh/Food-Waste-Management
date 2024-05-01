@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CookingPot, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
-import { BiDonateHeart, BiVideo, BiBookOpen } from 'react-icons/bi'; // Importing Lucid icons
-
+import { CookingPot, Facebook, Twitter, Instagram, Linkedin,Soup,MonitorPlay,BookOpenText  } from "lucide-react";
+import { BiBookOpen } from 'react-icons/bi';
 
 function HomeScreen() {
     return (
@@ -38,7 +37,6 @@ function HomeScreen() {
                 </div>
             </nav>
 
-
             <section id="hero" className="hero">
                 <div className="hero-background">
                     <div className='heroTextBackground container'>
@@ -52,8 +50,6 @@ function HomeScreen() {
             </section>
 
 
-
-
             <section id="features" className="section bg-light py-5">
                 <div className="container py-2">
                     <h2 className="text-center mb-5 headingColour">Key Features</h2>
@@ -61,29 +57,30 @@ function HomeScreen() {
                         <div className="col-md-4">
                             <div className="card text-center">
                                 <div className="card-body">
-                                    <BiDonateHeart size={50} color="#3e9392" className="mb-3" />
+                                    <Soup size={50} color="#3e9392" className="mb-3" />
+
                                     <h3 className="card-title">Donation Requests</h3>
                                     <p className="card-text">Specify items for donation and send requests for pickup.</p>
                                 </div>
                             </div>
                         </div>
 
-                        {/* Educational Videos Feature */}
+                       
                         <div className="col-md-4">
                             <div className="card text-center">
                                 <div className="card-body">
-                                    <BiVideo size={50} color="#3e9392" className="mb-3" />
+                                    <MonitorPlay size={50} color="#3e9392" className="mb-3"  />
                                     <h3 className="card-title">Educational Videos</h3>
                                     <p className="card-text">Access informative videos on food waste management.</p>
                                 </div>
                             </div>
                         </div>
 
-                        {/* Blogs Feature */}
+                 
                         <div className="col-md-4">
-                            <div className="card">
+                            <div className="card text-center">
                                 <div className="card-body">
-                                    <BiBookOpen size={50} color="#3e9392" className="mb-3" />
+                                    <BookOpenText  size={50} color="#3e9392" className="mb-3"/>
                                     <h3 className="card-title">Blogs</h3>
                                     <p className="card-text">Explore insightful blogs related to food waste reduction.</p>
                                 </div>
