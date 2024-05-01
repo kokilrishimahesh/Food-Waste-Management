@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { CookingPot, Facebook, Twitter, Instagram, Linkedin,Soup,MonitorPlay,BookOpenText  } from "lucide-react";
-import { BiBookOpen } from 'react-icons/bi';
 
 function HomeScreen() {
     return (
