@@ -1,0 +1,114 @@
+Certainly! Below are examples of test cases for both unit and integration testing based on the features you described
+for your website, covering login, signup, donation forms, donation listing, and displaying YouTube videos related to
+food waste reduction.
+
+### Unit Testing Test Cases:
+
+#### 1. Unit Test Case for Login Component:
+
+| SRN | Feature | Form | Name | Test Condition | Steps or Procedure | Input Test Data | Expected Result | Actual Output
+| Pass/Fail |
+|------|---------|---------|----------------------------------|-----------------------------------|---------------------------------------------------------|-----------------------------|-------------------------------------------|---------------------|-----------|
+| UT001 | Login | Unit | Validate User Login | Valid username and password | Call loginUser function with valid
+credentials | { username: 'test', password: 'password' } | User is authenticated successfully | User authenticated
+successfully | Pass |
+
+#### 2. Unit Test Case for Signup Component:
+
+| SRN | Feature | Form | Name | Test Condition | Steps or Procedure | Input Test Data | Expected Result | Actual Output
+| Pass/Fail |
+|------|---------|---------|----------------------------------|-----------------------------------|---------------------------------------------------------|-----------------------------|-------------------------------------------|---------------------|-----------|
+| UT002 | Signup | Unit | Validate User Signup | Valid username, email, password | Call signupUser function with valid
+credentials | { username: 'newuser', email: 'newuser@example.com', password: 'newpassword' } | User is successfully
+registered | User registered successfully | Pass |
+
+#### 3. Unit Test Case for Donation Form Component:
+
+| SRN | Feature | Form | Name | Test Condition | Steps or Procedure | Input Test Data | Expected Result | Actual Output
+| Pass/Fail |
+|------|------------|---------|----------------------------------|-----------------------------------|---------------------------------------------------------|-----------------------------|-------------------------------------------|---------------------|-----------|
+| UT003 | Donation | Unit | Validate Donation Submission | Valid donation details | Call submitDonation function with
+valid donation data | { type: 'Food', quantity: 10, expirationDate: '2024-05-01', contactName: 'John Doe', contactEmail:
+'johndoe@example.com', contactPhone: '1234567890', location: 'New York' } | Donation is successfully submitted |
+Donation submitted successfully | Pass |
+
+#### 4. Unit Test Case for DonationList Component:
+
+| SRN | Feature | Form | Name | Test Condition | Steps or Procedure | Input Test Data | Expected Result | Actual Output
+| Pass/Fail |
+|------|---------------|---------|----------------------------------|-----------------------------------|---------------------------------------------------------|-----------------------------|-------------------------------------------|---------------------|-----------|
+| UT004 | Donation List | Unit | Display Donation List | Mock donation data available | Render DonationList component
+with mock donations data | Mock donations array | Donations are displayed correctly | Donations displayed as expected |
+Pass |
+
+#### 5. Unit Test Case for YouTube Videos Component:
+
+| SRN | Feature | Form | Name | Test Condition | Steps or Procedure | Input Test Data | Expected Result | Actual Output
+| Pass/Fail |
+|------|-------------|---------|----------------------------------|-----------------------------------|---------------------------------------------------------|-----------------------------|-------------------------------------------|---------------------|-----------|
+| UT005 | YouTube | Unit | Display Food Waste Reduction Videos | YouTube API response available | Render YouTubeVideos
+component with food waste reduction videos data from API | Mock YouTube videos data | Food waste reduction videos are
+displayed | Food waste reduction videos displayed as expected | Pass |
+
+### Integration Testing Test Cases:
+
+#### 1. Integration Test Case for Login Process:
+
+| SRN | Feature | Form | Name | Test Condition | Steps or Procedure | Input Test Data | Expected Result | Actual Output
+| Pass/Fail |
+|------|---------|--------------|----------------------------------|-----------------------------------|---------------------------------------------------------|-----------------------------|-------------------------------------------|---------------------|-----------|
+| IT001 | Login | Integration | User Login and Profile Retrieval | Valid user credentials | Call loginUser function and
+retrieve user profile details | { username: 'test', password: 'password' } | User is authenticated and profile is
+retrieved | User authenticated and profile retrieved successfully | Pass |
+
+#### 2. Integration Test Case for Signup Process:
+
+| SRN | Feature | Form | Name | Test Condition | Steps or Procedure | Input Test Data | Expected Result | Actual Output
+| Pass/Fail |
+|------|---------|--------------|----------------------------------|-----------------------------------|---------------------------------------------------------|-----------------------------|-------------------------------------------|---------------------|-----------|
+| IT002 | Signup | Integration | User Signup and Profile Creation | Valid user signup details | Call signupUser function
+and create user profile | { username: 'newuser', email: 'newuser@example.com', password: 'newpassword' } | User is
+successfully registered and profile created | User registered and profile created successfully | Pass |
+
+#### 3. Integration Test Case for Donation Submission:
+
+| SRN | Feature | Form | Name | Test Condition | Steps or Procedure | Input Test Data | Expected Result | Actual Output
+| Pass/Fail |
+|------|------------|--------------|----------------------------------|-----------------------------------|---------------------------------------------------------|-----------------------------|-------------------------------------------|---------------------|-----------|
+| IT003 | Donation | Integration | Submit Donation | Valid donation details | Call submitDonation function and verify
+donation submission | { type: 'Food', quantity: 10, expirationDate: '2024-05-01', contactName: 'John Doe', contactEmail:
+'johndoe@example.com', contactPhone: '1234567890', location: 'New York' } | Donation is successfully submitted |
+Donation submitted successfully | Pass |
+
+#### 4. Integration Test Case for Donation Listing:
+
+| SRN | Feature | Form | Name | Test Condition | Steps or Procedure | Input Test Data | Expected Result | Actual Output
+| Pass/Fail |
+|------|---------------|--------------|----------------------------------|-----------------------------------|---------------------------------------------------------|-----------------------------|-------------------------------------------|---------------------|-----------|
+| IT004 | Donation List | Integration | Fetch and Display Donations | Mock donation data available | Render DonationList
+component and verify displayed donations | Mock donations array | Donations are displayed correctly | Donations
+displayed as expected | Pass |
+
+#### 5. Integration Test Case for YouTube Videos:
+
+| SRN | Feature | Form | Name | Test Condition | Steps or Procedure | Input Test Data | Expected Result | Actual Output
+| Pass/Fail |
+|------|-------------|--------------|----------------------------------|-----------------------------------|---------------------------------------------------------|-----------------------------|-------------------------------------------|---------------------|-----------|
+| IT005 | YouTube | Integration | Fetch and Display Food Waste Reduction Videos | YouTube API response available |
+Render YouTubeVideos component and verify displayed videos | Mock YouTube videos data
+
+
+
+
+
+
+AIzaSyCxxCPLWwyqG_Z2gX3kGB9yUL2qwnU5M6c
+
+
+
+<div className="col">
+    <strong>Status :</strong> {donation.RequestStatus || 'NA'}
+</div>
+<div className="col">
+    <strong>Location:</strong> 
+</div>

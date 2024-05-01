@@ -1,0 +1,59 @@
+.dashboard {
+    margin: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+#OutletComponent {
+    margin-left: 250px;
+    /* Same width as the sidebar */
+}
+
+.profile-info,
+.donation-listings,
+.messages-notifications,
+.account-settings,
+.logout-button {
+    margin-bottom: 30px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 32px;
+}
+
+h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+p {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
