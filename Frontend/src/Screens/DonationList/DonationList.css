@@ -1,63 +1,105 @@
 /* DonationList.css */
 
 .donation-item {
-    background-color: #ffffff; /* White background */
-    padding: 20px; /* Padding inside the item */
-    border-radius: 8px; /* Rounded corners */
-    margin-bottom: 20px; /* Spacing between items */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
-    transition: transform 0.3s ease-in-out; /* Smooth transformation */
+  background-color: #ffffff;
+  /* White background */
+  padding: 20px;
+  /* Padding inside the item */
+  border-radius: 8px;
+  /* Rounded corners */
+  margin-bottom: 20px;
+  /* Spacing between items */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Subtle box shadow */
+  transition: transform 0.3s ease-in-out;
+  /* Smooth transformation */
 }
 
 .donations-list-container {
-    width: 100%;
-    min-height: 100vh; /* Minimum height to cover the viewport */
-    padding: 20px; /* Padding inside the container */
-    margin: auto;
-    background-color: #f0f2f5; /* Light gray background */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  /* Minimum height to cover the viewport */
+  padding: 20px;
+  /* Padding inside the container */
+  margin: auto;
+  background-color: #f0f2f5;
+  /* Light gray background */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .donations-list-title {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
 }
 
 .donations-list {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
-
 .donation-item:hover {
-    transform: translateY(-5px);
+  transform: translateY(-5px);
 }
 
 .donation-info {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 strong {
-    font-weight: bold;
-    margin-right: 5px;
-    color: #555;
+  font-weight: bold;
+  margin-right: 5px;
+  color: #555;
 }
 
 .donations-heading {
-    text-align: center;
-    /* Center-align the text */
-    font-size: 2rem;
-    /* Set a larger font size (adjust as needed) */
-    color: #333;
-    /* Set the text color */
-    margin-bottom: 20px;
-    /* Add some bottom margin for spacing */
-    text-transform: uppercase;
-    /* Transform text to uppercase */
-    letter-spacing: 2px;
-    /* Add letter-spacing for a spaced-out look */
+  text-align: center;
+  /* Center-align the text */
+  font-size: 2rem;
+  /* Set a larger font size (adjust as needed) */
+  color: #333;
+  /* Set the text color */
+  margin-bottom: 20px;
+  /* Add some bottom margin for spacing */
+  text-transform: uppercase;
+  /* Transform text to uppercase */
+  letter-spacing: 2px;
+  /* Add letter-spacing for a spaced-out look */
+}
+
+.donation-item {
+  border: 1px solid #ddd;
+  padding: 16px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  /* Default background */
+}
+
+.donation-item.status-accepted {
+  background-color: #d4edda;
+  /* Green background for accepted */
+  border-color: #c3e6cb;
+  /* Green border for accepted */
+}
+
+.status-cancelled {
+  background-color: #f8d7da;
+  /* Light red background */
+  color: #721c24;
+  /* Dark red text */
+  border: 1px solid #f5c6cb;
+  /* Red border */
+}
+
+.status-accepted {
+  background-color: #d4edda;
+  /* Light green background */
+  color: #155724;
+  /* Dark green text */
+  border: 1px solid #c3e6cb;
+  /* Green border */
 }

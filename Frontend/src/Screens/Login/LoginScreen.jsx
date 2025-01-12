@@ -42,7 +42,7 @@ function LoginScreen() {
                 localStorage.setItem("role" , data.role);
 
                 // Redirect to dashboard page
-                navigate('/dashboard');
+                navigate('/user');
             } else {
                 const errorData = await response.json();
                 console.error('Login failed:', errorData.message);

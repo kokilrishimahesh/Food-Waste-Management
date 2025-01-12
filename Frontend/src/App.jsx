@@ -14,6 +14,8 @@ import BlogHome from "./Screens/Blogs/BlogHome";
 import BlogList from "./Screens/Blogs/BlogList";
 import Blog from "./Screens/Blogs/Blog";
 import BlogPost from "./Screens/Blogs/BlogPost";
+import NgoDashboard from "./Screens/NGO_Screens/NgoDashboard";
+import NGO_DonationsList from "./Screens/NGO_Screens/NGO_DonationsList/NGO_DonationsList";
 
 const router = createBrowserRouter([
   {
@@ -23,54 +25,63 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginScreen />,
-  }
-  ,
+  },
   {
     path: "/signup",
     element: <SignUp />,
-  }
-  ,
+  },
   {
-    path: "/dashboard",
+    path: "/user",
     element: <Dashboard />,
-    children:[
+    children: [
       {
-        path : 'profile',
+        path: "profile",
       },
       {
-        path : 'donation',
-        element : <DonationScreen />
+        path: "donation",
+        element: <DonationScreen />,
       },
       {
-        path : 'donationlist',
-        element : <DonationsList />
+        path: "donationlist",
+        element: <DonationsList />,
       },
       {
-        path : 'Edu',
-        element : <YouTubeVideos />
+        path: "edu",
+        element: <YouTubeVideos />,
       },
       {
-        path : 'blog',
-        element : <BlogHome />
+        path: "blog",
+        element: <BlogHome />,
       },
       {
-        path : 'blogPost',
-        element : <BlogPost />
+        path: "blogPost",
+        element: <BlogPost />,
       },
       {
-        path : 'blogList',
-        element : <BlogList />
+        path: "blogList",
+        element: <BlogList />,
       },
       {
-        path : 'blogs/:id',
-        element : <Blog />
+        path: "blogs/:id",
+        element: <Blog />,
       },
       {
-        path : 'settings',
+        path: "settings",
       },
-    ]
-  }
+    ],
+  },
+  {
+    path: "/ngo/",
+    element: <NgoDashboard />, // Placeholder, replace with NGO-specific dashboard if needed.
+    children: [
+      {
+        path: "donationlist",
+        element: <NGO_DonationsList />,
+      },
+    ],
+  },
 ]);
+
 
 function App() {
 

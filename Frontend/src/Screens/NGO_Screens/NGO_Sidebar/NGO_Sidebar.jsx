@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Home, Donut, MonitorPlay, MessageSquare, Settings, UserRound, Book } from 'lucide-react'; // Updated import with Lucid icons
+import { Home, MonitorPlay, MessageSquare, Settings, UserRound, Book, Eye } from 'lucide-react';
 
-import './Sidebar.css';
+import '../../../Components/Sidebar.css';
 
-const Sidebar = () => {
+const NGO_Sidebar = () => {
   return (
     <div className="sidebar">
       <ul>
@@ -16,8 +16,8 @@ const Sidebar = () => {
         </li>
         <li>
           <Link to="donation" className="sidebar-link">
-            <Donut className="sidebar-icon" />
-            Donation
+            <Eye className="sidebar-icon" />
+            Track Donation Status
           </Link>
         </li>
         {/* New button for Donation list */}
@@ -25,12 +25,6 @@ const Sidebar = () => {
           <Link to="donationlist" className="sidebar-link">
             <MonitorPlay className="sidebar-icon" />
             Donation List
-          </Link>
-        </li>
-        <li>
-          <Link to="Edu" className="sidebar-link">
-            <MessageSquare className="sidebar-icon" />
-            Videos
           </Link>
         </li>
         {/* New button for Blogs */}
@@ -59,4 +53,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default NGO_Sidebar;

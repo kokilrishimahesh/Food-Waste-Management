@@ -174,17 +174,37 @@ app.get('/donationHistory', async (req, res) => {
         const donations = await Donation.find({
             userProfile: profile._id,
             RequestStatus: { $in: ['Pending', 'Accepted'] }
+        })
+            .populate({
+                path: 'acceptedBy',
+                select: 'fullName'
+            });
+
+        // Process donations to return empty fields for canceled donations
+        const processedDonations = donations.map((donation) => {
+            if (donation.isCancelled) {
+                return {
+                    ...donation.toObject(),
+                    ngoDetails: null, // Return empty fields for canceled donations
+                };
+            } else {
+                return {
+                    ...donation.toObject(),
+                    ngoDetails: donation.acceptedBy.length > 0 ? donation.acceptedBy[0] : null,
+                };
+            }
         });
 
         res.status(200).json({
             message: 'Donations retrieved successfully',
-            donations
+            donations: processedDonations,
         });
     } catch (error) {
         console.error('Error retrieving donations:', error);
         res.status(500).json({ message: 'Failed to retrieve donations' });
     }
 });
+
 
 
 app.post('/blog', async (req, res) => {
@@ -238,6 +258,127 @@ app.get('/blogs/:id', async (req, res) => {
     }
 });
 
+app.get('/ngo/donationlist', async (req, res) => {
+    try {
+        // Pagination parameters
+        const { page = 1, limit = 10 } = req.query;
+
+        // Fetch donations with status 'Pending' and paginate
+        const donations = await Donation.find({ RequestStatus: 'Pending' })
+            .populate('userProfile', 'fullName') // Populate userProfile with fullName
+            .sort({ createdAt: -1 }) // Sort by newest first
+            .skip((page - 1) * limit) // Skip documents for pagination
+            .limit(parseInt(limit)) // Limit results per page
+            .exec();
+
+        // Count total donations for metadata
+        const totalDonations = await Donation.countDocuments({ RequestStatus: 'Pending' });
+
+        res.status(200).json({
+            message: 'Pending donations retrieved successfully',
+            donations,
+            metadata: {
+                totalDonations,
+                currentPage: parseInt(page),
+                totalPages: Math.ceil(totalDonations / limit),
+            },
+        });
+    } catch (error) {
+        console.error('Error retrieving donations:', error);
+        res.status(500).json({ message: 'Failed to retrieve donations' });
+    }
+});
+
+app.get('/ngo/donationlist', async (req, res) => {
+    try {
+        // Pagination parameters
+        const { page = 1, limit = 10 } = req.query;
+
+        // Fetch donations with status 'Pending' and paginate
+        const donations = await Donation.find({ RequestStatus: 'Pending' })
+            .populate('userProfile', 'fullName') // Populate userProfile with fullName
+            .sort({ createdAt: -1 }) // Sort by newest first
+            .exec();
+
+        // Count total donations for metadata
+        const totalDonations = await Donation.countDocuments({ RequestStatus: 'Pending' });
+
+        res.status(200).json({
+            message: 'Pending donations retrieved successfully',
+            donations,
+            metadata: {
+                totalDonations,
+                currentPage: parseInt(page),
+                totalPages: Math.ceil(totalDonations / limit),
+            },
+        });
+    } catch (error) {
+        console.error('Error retrieving donations:', error);
+        res.status(500).json({ message: 'Failed to retrieve donations' });
+    }
+});
+
+app.post('/ngo/donation/:id/accept', async (req, res) => {
+    const { id } = req.params;
+    const { ngoId } = req.body; // Get the NGO ID from the request body
+
+    try {
+        // Find the donation by ID
+        const donation = await Donation.findById(id);
+
+        if (!donation) {
+            return res.status(404).json({ message: 'Donation not found' });
+        }
+
+        // Update the donation's fields
+        donation.RequestStatus = 'Accepted';
+        donation.isCancelled = false; // Reset the cancellation status
+        donation.acceptedBy.push(ngoId); // Add the NGO to the acceptedBy array
+        donation.lastAcceptedBy = ngoId; // Update the last accepted by field
+
+        // Save the updated donation
+        await donation.save();
+
+        res.status(200).json({
+            message: 'Donation accepted successfully',
+            donation
+        });
+    } catch (error) {
+        console.error('Error updating donation status:', error);
+        res.status(500).json({ message: 'Failed to accept donation' });
+    }
+});
+
+
+app.post('/ngo/donation/:id/cancel', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        // Find the donation and update its status
+        const donation = await Donation.findByIdAndUpdate(
+            id,
+            {
+                isCancelled: true,
+                RequestStatus: 'Pending', // Optional: update the status
+            },
+            { new: true } // Return the updated document
+        );
+
+        // If no donation is found with the given ID
+        if (!donation) {
+            return res.status(404).json({ message: 'Donation not found' });
+        }
+
+        // Respond with success and the updated donation
+        res.status(200).json({
+            message: 'Donation successfully cancelled',
+            donation,
+        });
+    } catch (error) {
+        console.error('Error cancelling donation:', error);
+        res.status(500).json({ message: 'Failed to cancel donation' });
+    }
+});
 
 
 

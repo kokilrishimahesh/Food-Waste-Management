@@ -30,34 +30,40 @@ const DonationsList = () => {
   return (
     <div className="donations-list-container">
       <h2 className="donations-heading">Donations</h2>
-        {donations.map((donation) => (
-          <div key={donation._id} className="donation-item row">
-
-            <div class="col-md-6">
-              <label for="inputEmail4" class="form-label">Type</label>
-              <p className='form-control'>{donation.type}</p>
-            </div>
-            <div class="col-md-6">
-              <label for="inputPassword4" class="form-label">Expiration Date</label>
-              <p className='form-control'>{donation.expirationDate}</p>
-            </div>
-            <div class="col-4">
-              <label for="inputAddress" class="form-label">Quantity</label>
-              <p className='form-control'>{donation.quantity}</p>
-            </div>
-            <div class="col-md-4">
-              <label for="inputCity" class="form-label">Status</label>
-              <p className='form-control'>{donation.RequestStatus}</p>
-            </div>
-            <div class="col-md-4">
-              <label for="inputZip" class="form-label">Location</label>
-              <p className='form-control'>{donation.location}</p>
-            </div>
+      {donations.map((donation) => (
+        <div
+          key={donation._id}
+          className={`donation-item row ${donation.isCancelled ? 'status-cancelled' : donation.RequestStatus === 'Accepted' ? 'status-accepted' : ''}`}
+        >
+          <div className="col-md-6">
+            <label className="form-label">Type</label>
+            <p className="form-control">{donation.type}</p>
           </div>
-
-        ))}
-
-    </div >
+          <div className="col-md-6">
+            <label className="form-label">Expiration Date</label>
+            <p className="form-control">{donation.expirationDate}</p>
+          </div>
+          <div className="col-4">
+            <label className="form-label">Quantity</label>
+            <p className="form-control">{donation.quantity}</p>
+          </div>
+          <div className="col-md-4">
+            <label className="form-label">Status</label>
+            <p className="form-control">{donation.RequestStatus}</p>
+          </div>
+          <div className="col-md-4">
+            <label className="form-label">Location</label>
+            <p className="form-control">{donation.location}</p>
+          </div>
+          {!donation.isCancelled && donation.ngoDetails && (
+            <div className="col-md-12">
+              <label className="form-label">Accepted By</label>
+              <p className="form-control">{donation.ngoDetails.fullName || 'N/A'}</p>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
   );
 };
 

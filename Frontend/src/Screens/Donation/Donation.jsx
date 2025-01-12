@@ -86,7 +86,7 @@ const DonationScreen = () => {
           </div>
           <div className="col-md-6">
             <label>Quantity:</label>
-            <div className="input-group">
+            <div className="quantity-input">
               <button
                 className="btn btn-outline-secondary"
                 type="button"

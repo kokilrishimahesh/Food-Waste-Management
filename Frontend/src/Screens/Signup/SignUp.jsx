@@ -76,7 +76,7 @@ function SignupScreen() {
                     required
                 >
                     <option value="">Select a role</option>
-                    <option value="Delivery Partner">Delivery Partner</option>
+                    <option value="NGO">NGO</option>
                     <option value="User">User</option>
                 </select>
                 <div>

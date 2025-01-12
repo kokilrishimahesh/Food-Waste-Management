@@ -35,7 +35,7 @@ function BlogList() {
                 <h5 className="card-title">{blog.title}</h5>
                 <p className="card-text text-muted mb-3">{blog.author}</p>
                 <p className="card-text">{new Date(blog.createdAt).toDateString()}</p>
-                <Link to={`/dashboard/blogs/${blog._id}`} className="blogButton">
+                <Link to={`/user/blogs/${blog._id}`} className="blogButton">
                   Read More
                 </Link>
               </div>

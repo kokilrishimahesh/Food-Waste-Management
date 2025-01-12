@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import "./Blog.css"
+import "./Blogs.css"
 function Blog() {
   const [blog, setBlog] = useState(null);
   const { id } = useParams(); // Access the 'id' parameter from the URL
