@@ -1,76 +1,54 @@
+import "./NGO_Track_Donations.css"
 import React, { useState, useEffect } from 'react';
-import './NGO_DonationsList.css';
+import axios from "axios";
 
-const NGO_DonationsList = () => {
+const NGO_Track_Donations = () => {
     const [donations, setDonations] = useState([]);
 
     useEffect(() => {
-        const fetchDonations = async () => {
+        const fetchTrackDonations = async () => {
             try {
-                const response = await fetch('http://localhost:3000/ngo/donationList');
+                // Retrieve userId from localStorage
+                const userId = localStorage.getItem('Userid');
+
+                if (!userId) {
+                    console.error('User ID is not present in localStorage');
+                    return; // Exit if userId is not available
+                }
+
+                const response = await axios.get(`http://localhost:3000/ngo/getAcceptedDonations/${userId}`);
 
                 if (response.ok) {
-                    const data = await response.json();
+                    const data = await response.data();
                     setDonations(data.donations);
                 } else {
                     console.error('Failed to fetch donations');
                 }
             } catch (error) {
-                console.error('Error fetching donations:', error);
+                console.error('Error fetching donations:');
             }
         };
 
-        fetchDonations();
+        fetchTrackDonations();
 
-        const intervalId = setInterval(fetchDonations, 15000); // Fetch every 15 seconds
+        const intervalId = setInterval(fetchTrackDonations, 15000); // Fetch every 15 seconds
 
         return () => clearInterval(intervalId); // Cleanup on component unmount
     }, []);
 
-    const handleAccept = async (donationId) => {
-        try {
-            // Retrieve userId from localStorage
-            const userId = localStorage.getItem('Userid');
-
-            if (!userId) {
-                console.error('User ID is not present in localStorage');
-                return; // Exit the function without sending the request
-            }
-
-            // Proceed with the request
-            const response = await fetch(`http://localhost:3000/ngo/donation/${donationId}/accept`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ "ngoId" : userId }) // Send userId in the request body
-            });
-
-            if (response.ok) {
-                setDonations((prevDonations) =>
-                    prevDonations.map((donation) =>
-                        donation._id === donationId
-                            ? { ...donation, RequestStatus: 'Accepted' }
-                            : donation
-                    )
-                );
-            } else {
-                console.error('Failed to accept donation');
-            }
-        } catch (error) {
-            console.error('Error accepting donation:', error);
-        }
-    };
-
     return (
-        <>
-            <div class="donations-list-container">
-                <h2 class="donations-heading">Donations</h2>
-                {donations.map((donation) => (
+        <div className="track-donations-list-container">
+            <h2 className="track-donations-heading">My Donations</h2>
+            {donations.length > 0 ? (
+                donations.map((donation) => (
                     <div key={donation._id} className="donation-item">
                         <div className="donation-header">
                             <h3 className="donor-name">{donation.userProfile.fullName}</h3>
-                            <p className="donation-status {donation.RequestStatus === 'Accepted' ? 'status-accepted' : 'status-pending'}">
+                            <p
+                                className={`donation-status ${
+                                    donation.RequestStatus === 'Accepted' ? 'status-accepted' : 'status-pending'
+                                }`}
+                            >
                                 {donation.RequestStatus}
                             </p>
                         </div>
@@ -118,20 +96,13 @@ const NGO_DonationsList = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="donation-actions">
-                            <button
-                                className="btn btn-primary"
-                                onClick={() => handleAccept(donation._id)}
-                                disabled={donation.RequestStatus === 'Accepted'}
-                            >
-                                {donation.RequestStatus === 'Accepted' ? 'Accepted' : 'Accept'}
-                            </button>
-                        </div>
                     </div>
-                ))}
-            </div>
-        </>
-    )
+                ))
+            ) : (
+                <p>No donations to track yet!</p>
+            )}
+        </div>
+    );
 };
 
-export default NGO_DonationsList;
+export default NGO_Track_Donations;

@@ -1,10 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Home, MonitorPlay, MessageSquare, Settings, UserRound, Book, Eye } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Home, MonitorPlay, MessageSquare, Settings, UserRound, Book, Eye, LogOutIcon } from 'lucide-react';
 
 import '../../../Components/Sidebar.css';
 
 const NGO_Sidebar = () => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('Userid');
+    localStorage.removeItem('role');
+    navigate("/login")
+  }
   return (
     <div className="sidebar">
       <ul>
@@ -15,7 +22,7 @@ const NGO_Sidebar = () => {
           </Link>
         </li>
         <li>
-          <Link to="donation" className="sidebar-link">
+          <Link to="trackDonations" className="sidebar-link">
             <Eye className="sidebar-icon" />
             Track Donation Status
           </Link>
@@ -47,7 +54,17 @@ const NGO_Sidebar = () => {
             Settings
           </Link>
         </li>
-        
+        <li>
+          <div
+            to="login"
+            className="sidebar-link"
+            onClick={handleLogout}
+          >
+            <LogOutIcon className="sidebar-icon" />
+            LogOut
+          </div>
+        </li>
+
       </ul>
     </div>
   );

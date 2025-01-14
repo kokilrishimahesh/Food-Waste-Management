@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Signup.css';
+import axios from 'axios';
+
 
 function SignupScreen() {
     const [username, setUsername] = useState('');
@@ -36,31 +38,29 @@ function SignupScreen() {
         };
 
         try {
-            const response = await fetch('http://localhost:3000/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(requestBody)
-            });
+            const response = await axios.post('http://localhost:3000/signup', requestBody);
 
-            if (response.ok) {
-                const data = await response.json();
+            if (response.status === 200) {
+                const data = response.data;
                 // Set login status in localStorage
                 localStorage.setItem('isLoggedIn', 'true');
                 localStorage.setItem('Userid', data.user);
                 localStorage.setItem('role', data.role);
 
                 // Redirect to dashboard page
-                navigate('/dashboard');
+                data.role === "NGO"
+                    ? navigate('/ngo')
+                    : navigate('/user');
+
                 console.log('Signup successful:', data);
-            } else {
-                const errorData = await response.json();
-                setError(errorData.message || 'Failed to register user');
             }
         } catch (error) {
             console.error('Signup error:', error);
-            setError('Failed to register user');
+            if (error.response && error.response.data && error.response.data.message) {
+                setError(error.response.data.message);
+            } else {
+                setError('Failed to register user');
+            }
         }
     };
 

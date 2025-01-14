@@ -41,7 +41,7 @@ app.post('/login', async (req, res) => {
         }
 
         // Return success response with user _id and role from the profile
-        res.status(200).json({ message: 'Login successful', success: true, userid: user._id, role: userProfile.role });
+        res.status(200).json({ message: 'Login successful', success: true, userid: user._id, role: userProfile.role, userProfile, user });
     } catch (error) {
         // Handle any server error during login process
         console.error('Login error:', error);
@@ -54,6 +54,13 @@ app.post('/signup', async (req, res) => {
     const { role, Fullname, email, password } = req.body;
 
     try {
+        // Check if the email already exists
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: 'Email already in use' });
+        }
+
+        // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // Create a new user
@@ -62,10 +69,9 @@ app.post('/signup', async (req, res) => {
             password: hashedPassword,
         });
 
-
         const savedUser = await newUser.save();
 
-
+        // Create a new user profile
         const newUserProfile = new UserProfile({
             role: role,
             fullName: Fullname,
@@ -74,16 +80,25 @@ app.post('/signup', async (req, res) => {
 
         const savedUserProfile = await newUserProfile.save();
 
-        res.status(201).json({
+        res.status(200).json({
             message: 'User registered successfully',
             user: savedUser._id,
-            role: role
+            role: newUserProfile.role,
+            userDetails : newUser,
+            userProfile : newUserProfile
         });
     } catch (error) {
         console.error('User registration error:', error);
+
+        // Handle MongoDB duplicate key error explicitly
+        if (error.code === 11000) {
+            return res.status(400).json({ message: 'Email already exists' });
+        }
+
         res.status(500).json({ message: 'Failed to register user' });
     }
 });
+
 
 app.post("/donation", async (req, res) => {
     const {
@@ -349,36 +364,60 @@ app.post('/ngo/donation/:id/accept', async (req, res) => {
     }
 });
 
-
 app.post('/ngo/donation/:id/cancel', async (req, res) => {
     const { id } = req.params;
 
     try {
-        // Find the donation and update its status
-        const donation = await Donation.findByIdAndUpdate(
-            id,
-            {
-                isCancelled: true,
-                RequestStatus: 'Pending', // Optional: update the status
-            },
-            { new: true } // Return the updated document
-        );
+        // Find the donation by ID
+        const donation = await Donation.findById(id);
 
-        // If no donation is found with the given ID
         if (!donation) {
             return res.status(404).json({ message: 'Donation not found' });
         }
 
-        // Respond with success and the updated donation
+        // Update the donation's status to canceled
+        donation.RequestStatus = 'Cancelled';
+        donation.isCancelled = true;
+        donation.lastAcceptedBy = null; // Clear the last accepted by field
+
+        // Save the updated donation
+        await donation.save();
+
         res.status(200).json({
-            message: 'Donation successfully cancelled',
-            donation,
+            message: 'Donation canceled successfully',
+            donation
         });
     } catch (error) {
-        console.error('Error cancelling donation:', error);
+        console.error('Error canceling donation:', error);
         res.status(500).json({ message: 'Failed to cancel donation' });
     }
 });
+
+app.get('/ngo/getAcceptedDonations/:id', async (req, res) => {
+    const { id } = req.params;
+    console.log("Reached Get");
+
+    try {
+        // Find the donation by ID
+        const user = await UserProfile.findById(id);
+
+        if (!user) {
+            return res.status(404).json({ message: 'user not found' });
+        }
+
+        const donationlist = Donation.find({ lastAcceptedBy: user });
+
+
+        res.status(200).json({
+            message: 'Donation canceled successfully',
+            donationlist
+        });
+    } catch (error) {
+        console.error('Error canceling donation:', error);
+        res.status(500).json({ message: 'Failed to cancel donation' });
+    }
+});
+
 
 
 

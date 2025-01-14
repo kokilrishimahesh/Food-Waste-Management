@@ -1,10 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Home, Donut, MonitorPlay, MessageSquare, Settings, UserRound, Book } from 'lucide-react'; // Updated import with Lucid icons
 
 import './Sidebar.css';
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('Userid');
+    localStorage.removeItem('role');
+    navigate("/login")
+  }
+
   return (
     <div className="sidebar">
       <ul>
@@ -53,7 +61,13 @@ const Sidebar = () => {
             Settings
           </Link>
         </li>
-        
+        <li>
+          <div className="sidebar-link" onClick={handleLogout}>
+            <Settings className="sidebar-icon" />
+            Log Out
+          </div>
+        </li>
+
       </ul>
     </div>
   );

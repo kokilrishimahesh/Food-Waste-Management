@@ -16,6 +16,7 @@ import Blog from "./Screens/Blogs/Blog";
 import BlogPost from "./Screens/Blogs/BlogPost";
 import NgoDashboard from "./Screens/NGO_Screens/NgoDashboard";
 import NGO_DonationsList from "./Screens/NGO_Screens/NGO_DonationsList/NGO_DonationsList";
+import NGO_Track_Donations from "./Screens/NGO_Screens/NGO_Accepted_Requests/NGO_Track_Donations";
 
 const router = createBrowserRouter([
   {
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
       {
         path: "donationlist",
         element: <NGO_DonationsList />,
+      },
+      {
+        path: "trackDonations",
+        element: <NGO_Track_Donations />,
       },
     ],
   },

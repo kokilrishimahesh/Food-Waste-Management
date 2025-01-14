@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; // Import Link from react-router-dom
 import './Login.css'; // Import the CSS file
+import axios from 'axios';
 
 function LoginScreen() {
     const [username, setUsername] = useState('');
@@ -24,16 +25,10 @@ function LoginScreen() {
         };
 
         try {
-            const response = await fetch('http://localhost:3000/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(requestBody)
-            });
+            const response = await axios.post('http://localhost:3000/login', requestBody);
 
-            if (response.ok) {
-                const data = await response.json();
+            if (response.status == 200) {
+                const data = await response.data;
                 console.log('Login successful:', data);
 
                 // Set login status in localStorage
@@ -41,10 +36,12 @@ function LoginScreen() {
                 localStorage.setItem("Userid" , data.userid);
                 localStorage.setItem("role" , data.role);
 
-                // Redirect to dashboard page
-                navigate('/user');
+
+                data.role == "NGO" 
+                    ? navigate('/ngo')
+                    : navigate('/user');
             } else {
-                const errorData = await response.json();
+                const errorData = await response.data;
                 console.error('Login failed:', errorData.message);
                 // TODO: Handle failed login (e.g., display error message to user)
             }
