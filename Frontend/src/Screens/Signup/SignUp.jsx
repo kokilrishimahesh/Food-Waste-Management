@@ -8,7 +8,7 @@ function SignupScreen() {
     const [username, setUsername] = useState('');
     const [fullname, setFullname] = useState('');
     const [password, setPassword] = useState('');
-    const [role, setRole] = useState("");
+    const [role, setRole] = useState(null);
     const [error, setError] = useState(null);
 
     const navigate = useNavigate();
@@ -26,6 +26,13 @@ function SignupScreen() {
         setPassword(event.target.value);
     };
 
+    const resetFields = () => {
+        setUsername("");
+        setFullname("");
+        setPassword("");
+        setRole(null);
+    }
+
     const handleSignup = async (event) => {
         event.preventDefault(); // Prevent default form submission
 
@@ -42,6 +49,8 @@ function SignupScreen() {
 
             if (response.status === 200) {
                 const data = response.data;
+                console.log(data);
+                
                 // Set login status in localStorage
                 localStorage.setItem('isLoggedIn', 'true');
                 localStorage.setItem('Userid', data.user);
@@ -54,6 +63,8 @@ function SignupScreen() {
 
                 console.log('Signup successful:', data);
             }
+
+            resetFields();
         } catch (error) {
             console.error('Signup error:', error);
             if (error.response && error.response.data && error.response.data.message) {
@@ -62,6 +73,7 @@ function SignupScreen() {
                 setError('Failed to register user');
             }
         }
+        
     };
 
     return (

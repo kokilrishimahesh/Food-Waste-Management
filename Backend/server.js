@@ -17,7 +17,9 @@ app.post('/login', async (req, res) => {
 
     try {
         // Find the user by username
-        const user = await User.findOne({ username });
+        const user = await User.findOne({ email : username });
+        console.log(user);
+        
 
         if (!user) {
             // If user not found, return 404 with a message
@@ -41,7 +43,7 @@ app.post('/login', async (req, res) => {
         }
 
         // Return success response with user _id and role from the profile
-        res.status(200).json({ message: 'Login successful', success: true, userid: user._id, role: userProfile.role, userProfile, user });
+        res.status(200).json({ message: 'Login successfull', success: true, userid: user._id, role: userProfile.role, userProfile, user });
     } catch (error) {
         // Handle any server error during login process
         console.error('Login error:', error);

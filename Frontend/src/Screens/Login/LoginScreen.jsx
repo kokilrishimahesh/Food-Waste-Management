@@ -20,11 +20,13 @@ function LoginScreen() {
         event.preventDefault();
 
         const requestBody = {
-            email: username,
-            password
+            username: username,
+            password : password
         };
 
         try {
+            console.log(requestBody);
+            
             const response = await axios.post('http://localhost:3000/login', requestBody);
 
             if (response.status == 200) {
