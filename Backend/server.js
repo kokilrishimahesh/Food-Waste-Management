@@ -17,9 +17,9 @@ app.post('/login', async (req, res) => {
 
     try {
         // Find the user by username
-        const user = await User.findOne({ email : username });
+        const user = await User.findOne({ email: username });
         console.log(user);
-        
+
 
         if (!user) {
             // If user not found, return 404 with a message
@@ -51,7 +51,7 @@ app.post('/login', async (req, res) => {
     }
 });
 
-  
+
 app.post('/signup', async (req, res) => {
     const { role, Fullname, email, password } = req.body;
 
@@ -86,8 +86,8 @@ app.post('/signup', async (req, res) => {
             message: 'User registered successfully',
             user: savedUser._id,
             role: newUserProfile.role,
-            userDetails : newUser,
-            userProfile : newUserProfile
+            userDetails: newUser,
+            userProfile: newUserProfile
         });
     } catch (error) {
         console.error('User registration error:', error);
@@ -190,7 +190,7 @@ app.get('/donationHistory', async (req, res) => {
 
         const donations = await Donation.find({
             userProfile: profile._id,
-            RequestStatus: { $in: ['Pending', 'Accepted'] }
+            RequestStatus: { $in: ['Pending', 'Accepted', 'Cancelled'] }
         })
             .populate({
                 path: 'acceptedBy',
@@ -281,12 +281,10 @@ app.get('/ngo/donationlist', async (req, res) => {
         const { page = 1, limit = 10 } = req.query;
 
         // Fetch donations with status 'Pending' and paginate
-        const donations = await Donation.find({ RequestStatus: 'Pending' })
+        const donations = await Donation.find({ RequestStatus: { $in: ['Pending', 'Cancelled'] } })
             .populate('userProfile', 'fullName') // Populate userProfile with fullName
-            .sort({ createdAt: -1 }) // Sort by newest first
-            .skip((page - 1) * limit) // Skip documents for pagination
-            .limit(parseInt(limit)) // Limit results per page
-            .exec();
+            .sort({ createdAt: -1 })
+
 
         // Count total donations for metadata
         const totalDonations = await Donation.countDocuments({ RequestStatus: 'Pending' });
@@ -367,6 +365,8 @@ app.post('/ngo/donation/:id/accept', async (req, res) => {
 });
 
 app.post('/ngo/donation/:id/cancel', async (req, res) => {
+    console.log('cancel');
+
     const { id } = req.params;
 
     try {
@@ -396,15 +396,12 @@ app.post('/ngo/donation/:id/cancel', async (req, res) => {
 });
 
 app.get('/ngo/getAcceptedDonations/:id', async (req, res) => {
-    
     const { id } = req.params;
-    console.log("Reached Get" , id);
-
     try {
         // Find the donation by ID 
         const user = await User.findById(id);
         console.log(user);
-        
+
 
         if (!user) {
             return res.status(404).json({ message: 'user not found' });
@@ -420,7 +417,6 @@ app.get('/ngo/getAcceptedDonations/:id', async (req, res) => {
         res.status(500).json({ message: 'Failed fetch Donations', error });
     }
 });
-
 
 
 

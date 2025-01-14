@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Home, Donut, MonitorPlay, MessageSquare, Settings, UserRound, Book } from 'lucide-react'; // Updated import with Lucid icons
+import { Home, Donut, MonitorPlay, MessageSquare, Settings, UserRound, Book, LogOutIcon } from 'lucide-react'; // Updated import with Lucid icons
 
 import './Sidebar.css';
 
@@ -63,7 +63,7 @@ const Sidebar = () => {
         </li>
         <li>
           <div className="sidebar-link" onClick={handleLogout}>
-            <Settings className="sidebar-icon" />
+            <LogOutIcon className="sidebar-icon" />
             Log Out
           </div>
         </li>

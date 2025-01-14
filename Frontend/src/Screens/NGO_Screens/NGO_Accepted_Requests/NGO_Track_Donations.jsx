@@ -4,6 +4,20 @@ import axios from "axios";
 
 const NGO_Track_Donations = () => {
     const [donations, setDonations] = useState([]);
+    const [toggle, setToggle] = useState(false);
+
+    const handleCancel = async (id) => {
+        try {
+            const response = await axios.post(`http://localhost:3000/ngo/donation/${id}/cancel`, { data : '1234'});
+
+            if (response.status == 200) {
+                setToggle(!toggle);
+            }
+        } catch (error) {
+            console.log("error while cancelling donations", error);
+            
+        }
+    }
 
     useEffect(() => {
         const fetchTrackDonations = async () => {
@@ -11,7 +25,7 @@ const NGO_Track_Donations = () => {
                 // Retrieve userId from localStorage
                 const userId = localStorage.getItem('Userid');
                 console.log(userId);
-                
+
 
                 if (!userId) {
                     console.error('User ID is not present in localStorage');
@@ -23,7 +37,7 @@ const NGO_Track_Donations = () => {
                 if (response.status == 200) {
                     const data = response.data;
                     console.log(data);
-                    
+
                     setDonations(data.donationlist);
                 } else {
                     console.error('Failed to fetch donations');
@@ -38,7 +52,7 @@ const NGO_Track_Donations = () => {
         const intervalId = setInterval(fetchTrackDonations, 15000); // Fetch every 15 seconds
 
         return () => clearInterval(intervalId); // Cleanup on component unmount
-    }, []);
+    }, [toggle]);
 
     return (
         <div className="track-donations-list-container">
@@ -48,13 +62,22 @@ const NGO_Track_Donations = () => {
                     <div key={donation._id} className="donation-item">
                         <div className="donation-header">
                             <h3 className="donor-name">{donation.userProfile.fullName}</h3>
-                            <p
-                                className={`donation-status ${
-                                    donation.RequestStatus === 'Accepted' ? 'status-accepted' : 'status-pending'
-                                }`}
+                            <div
+                                className="flex-container"
                             >
-                                {donation.RequestStatus}
-                            </p>
+                                <p
+                                    className={`donation-status ${donation.RequestStatus === 'Accepted' ? 'status-accepted' : 'status-pending'
+                                        }`}
+                                >
+                                    {donation.RequestStatus}
+                                </p>
+                                <p
+                                    className="donation-status cancel-button"
+                                    onClick={() => handleCancel(donation._id)}
+                                >
+                                    Concel
+                                </p>
+                            </div>
                         </div>
                         <div className="donation-details">
                             <div className="row">

@@ -7,6 +7,22 @@
   font-family: 'Arial', sans-serif;
 }
 
+.flex-container{
+  display: flex;
+  gap: 1rem;
+  justify-items: center;
+  align-items: center;
+}
+
+.cancel-button{
+  background-color: grey;
+  cursor: pointer;
+}
+
+.cancel-button:hover{
+  background-color: rgb(78, 77, 77)
+}
+
 .track-donations-heading {
   font-size: 2em;
   font-weight: bold;

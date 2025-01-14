@@ -15,6 +15,8 @@ const DonationsList = () => {
 
         if (response.ok) {
           const data = await response.json();
+          console.log(data);
+          
           setDonations(data.donations);
         } else {
           console.error('Failed to fetch donations');
@@ -33,7 +35,7 @@ const DonationsList = () => {
       {donations.map((donation) => (
         <div
           key={donation._id}
-          className={`donation-item row ${donation.isCancelled ? 'status-cancelled' : donation.RequestStatus === 'Accepted' ? 'status-accepted' : ''}`}
+          className={`donation-item row ${donation.isCancelled ? 'status-cancelled' : (donation.RequestStatus === 'Accepted' ? 'status-accepted' : '')}`}
         >
           <div className="col-md-6">
             <label className="form-label">Type</label>
