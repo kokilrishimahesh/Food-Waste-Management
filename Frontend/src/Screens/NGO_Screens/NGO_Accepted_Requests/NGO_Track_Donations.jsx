@@ -10,6 +10,8 @@ const NGO_Track_Donations = () => {
             try {
                 // Retrieve userId from localStorage
                 const userId = localStorage.getItem('Userid');
+                console.log(userId);
+                
 
                 if (!userId) {
                     console.error('User ID is not present in localStorage');
@@ -18,14 +20,16 @@ const NGO_Track_Donations = () => {
 
                 const response = await axios.get(`http://localhost:3000/ngo/getAcceptedDonations/${userId}`);
 
-                if (response.ok) {
-                    const data = await response.data();
-                    setDonations(data.donations);
+                if (response.status == 200) {
+                    const data = response.data;
+                    console.log(data);
+                    
+                    setDonations(data.donationlist);
                 } else {
                     console.error('Failed to fetch donations');
                 }
             } catch (error) {
-                console.error('Error fetching donations:');
+                console.error('Error fetching donations:', error);
             }
         };
 
@@ -39,7 +43,7 @@ const NGO_Track_Donations = () => {
     return (
         <div className="track-donations-list-container">
             <h2 className="track-donations-heading">My Donations</h2>
-            {donations.length > 0 ? (
+            {donations && donations.length > 0 ? (
                 donations.map((donation) => (
                     <div key={donation._id} className="donation-item">
                         <div className="donation-header">

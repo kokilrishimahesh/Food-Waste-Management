@@ -49,7 +49,7 @@ app.post('/login', async (req, res) => {
     }
 });
 
-
+  
 app.post('/signup', async (req, res) => {
     const { role, Fullname, email, password } = req.body;
 
@@ -394,27 +394,28 @@ app.post('/ngo/donation/:id/cancel', async (req, res) => {
 });
 
 app.get('/ngo/getAcceptedDonations/:id', async (req, res) => {
+    
     const { id } = req.params;
-    console.log("Reached Get");
+    console.log("Reached Get" , id);
 
     try {
-        // Find the donation by ID
-        const user = await UserProfile.findById(id);
+        // Find the donation by ID 
+        const user = await User.findById(id);
+        console.log(user);
+        
 
         if (!user) {
             return res.status(404).json({ message: 'user not found' });
         }
 
-        const donationlist = Donation.find({ lastAcceptedBy: user });
-
+        const donationlist = await Donation.find({ lastAcceptedBy: id });
 
         res.status(200).json({
-            message: 'Donation canceled successfully',
+            message: 'Donation Found successfully',
             donationlist
         });
     } catch (error) {
-        console.error('Error canceling donation:', error);
-        res.status(500).json({ message: 'Failed to cancel donation' });
+        res.status(500).json({ message: 'Failed fetch Donations', error });
     }
 });
 
