@@ -31,7 +31,7 @@ const NGO_Sidebar = () => {
         <li>
           <Link to="donationlist" className="sidebar-link">
             <MonitorPlay className="sidebar-icon" />
-            Donation List
+            Check Available Donations
           </Link>
         </li>
         {/* New button for Blogs */}

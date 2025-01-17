@@ -105,51 +105,54 @@ app.post('/signup', async (req, res) => {
 app.post("/donation", async (req, res) => {
     const {
         type,
-        quantity,
-        expirationDate,
+        weight, // Updated from quantity
+        dimensions, // New field
+        description, // New field
         pickupInstructions,
         contactName,
         contactEmail,
         contactPhone,
-        location
+        location,
     } = req.body;
 
     const userId = req.headers.userid;
 
     try {
+        // Find the user's profile using the userId from the headers
         const profile = await UserProfile.findOne({ user: userId });
 
         if (!profile) {
-            return res.status(404).json({ message: 'User profile not found for the provided userId' });
+            return res.status(404).json({ message: "User profile not found for the provided userId" });
         }
 
-
+        // Create a new donation entry
         const newDonation = new Donation({
             type,
-            quantity,
-            expirationDate,
+            weight, // Updated field
+            dimensions, // Added field
+            description, // Added field
             pickupInstructions,
             contactName,
             contactEmail,
             contactPhone,
             location,
-            userProfile: profile._id // Associate the donation with the userProfile
+            userProfile: profile._id, // Associate the donation with the user's profile
         });
 
         // Save the new donation to the database
         const savedDonation = await newDonation.save();
 
-        // Update the user profile's donations array with the new donation _id
+        // Update the user profile's donations array with the new donation ID
         profile.donations.push(savedDonation._id);
         await profile.save();
 
         res.status(200).json({
-            message: 'Donation created successfully',
-            donation: savedDonation
+            message: "Donation created successfully",
+            donation: savedDonation,
         });
     } catch (error) {
-        console.error('Error creating donation:', error);
-        res.status(500).json({ message: 'Failed to create donation' });
+        console.error("Error creating donation:", error);
+        res.status(500).json({ message: "Failed to create donation" });
     }
 });
 
@@ -167,9 +170,23 @@ app.get('/donationRequest', async (req, res) => {
         // Retrieve all donations associated with the user profile
         const donations = await Donation.find({ userProfile: profile._id, RequestStatus: true });
 
+        // Manually fetch details for `lastAcceptedBy` for each donation
+        const donationsWithDetails = await Promise.all(
+            donations.map(async (donation) => {
+                if (donation.lastAcceptedBy) {
+                    const lastAcceptedByDetails = await UserProfile.findById(donation.lastAcceptedBy);
+                    return {
+                        ...donation._doc, // Spread donation data
+                        lastAcceptedBy: lastAcceptedByDetails || null, // Include the user profile details or null if not found
+                    };
+                }
+                return donation._doc; // Return donation as is if `lastAcceptedBy` is null
+            })
+        );
+
         res.status(200).json({
             message: 'Donations retrieved successfully',
-            donations
+            donations: donationsWithDetails,
         });
     } catch (error) {
         console.error('Error retrieving donations:', error);
@@ -181,46 +198,53 @@ app.get('/donationHistory', async (req, res) => {
     const userId = req.headers.userid; // Get userId from request headers
 
     try {
+        // Validate the userId
+        if (!userId) {
+            return res.status(400).json({ message: 'User ID is required in the request headers.' });
+        }
+
         // Find the user profile associated with the userId
         const profile = await UserProfile.findOne({ user: userId });
 
         if (!profile) {
-            return res.status(404).json({ message: 'User profile not found for the provided userId' });
+            return res.status(404).json({ message: 'User profile not found for the provided userId.' });
         }
 
+        // Retrieve donations for the user
         const donations = await Donation.find({
             userProfile: profile._id,
-            RequestStatus: { $in: ['Pending', 'Accepted', 'Cancelled'] }
-        })
-            .populate({
-                path: 'acceptedBy',
-                select: 'fullName'
-            });
-
-        // Process donations to return empty fields for canceled donations
-        const processedDonations = donations.map((donation) => {
-            if (donation.isCancelled) {
-                return {
-                    ...donation.toObject(),
-                    ngoDetails: null, // Return empty fields for canceled donations
-                };
-            } else {
-                return {
-                    ...donation.toObject(),
-                    ngoDetails: donation.acceptedBy.length > 0 ? donation.acceptedBy[0] : null,
-                };
-            }
+            RequestStatus: { $in: ['Pending', 'Accepted', 'Cancelled'] },
         });
 
+        // Process donations and fetch `lastAcceptedBy` details manually if necessary
+        const processedDonations = await Promise.all(
+            donations.map(async (donation) => {
+                let ngoDetails = null;
+
+                // Fetch `lastAcceptedBy` details if donation is not cancelled and `lastAcceptedBy` exists
+                if (!donation.isCancelled && donation.lastAcceptedBy) {
+                    ngoDetails = await UserProfile.findById(donation.lastAcceptedBy);
+                }
+
+                return {
+                    ...donation.toObject(), // Convert the Mongoose document to a plain object
+                    ngoDetails: ngoDetails
+                };
+            })
+        );
+
+        // Respond with the processed donations
         res.status(200).json({
             message: 'Donations retrieved successfully',
             donations: processedDonations,
         });
     } catch (error) {
         console.error('Error retrieving donations:', error);
-        res.status(500).json({ message: 'Failed to retrieve donations' });
+        res.status(500).json({ message: 'Failed to retrieve donations. Please try again later.' });
     }
 });
+
+
 
 
 

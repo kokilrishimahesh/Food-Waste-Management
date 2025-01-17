@@ -33,7 +33,6 @@ function BlogList() {
             <div className="card h-100 shadow">
               <div className="card-body">
                 <h5 className="card-title">{blog.title}</h5>
-                <p className="card-text text-muted mb-3">{blog.author}</p>
                 <p className="card-text">{new Date(blog.createdAt).toDateString()}</p>
                 <Link to={`/user/blogs/${blog._id}`} className="blogButton">
                   Read More

@@ -8,24 +8,21 @@ const NGO_Track_Donations = () => {
 
     const handleCancel = async (id) => {
         try {
-            const response = await axios.post(`http://localhost:3000/ngo/donation/${id}/cancel`, { data : '1234'});
+            const response = await axios.post(`http://localhost:3000/ngo/donation/${id}/cancel`, { data: '1234' });
 
-            if (response.status == 200) {
+            if (response.status === 200) {
                 setToggle(!toggle);
             }
         } catch (error) {
             console.log("error while cancelling donations", error);
-            
         }
     }
 
     useEffect(() => {
         const fetchTrackDonations = async () => {
             try {
-                // Retrieve userId from localStorage
                 const userId = localStorage.getItem('Userid');
                 console.log(userId);
-
 
                 if (!userId) {
                     console.error('User ID is not present in localStorage');
@@ -34,7 +31,7 @@ const NGO_Track_Donations = () => {
 
                 const response = await axios.get(`http://localhost:3000/ngo/getAcceptedDonations/${userId}`);
 
-                if (response.status == 200) {
+                if (response.status === 200) {
                     const data = response.data;
                     console.log(data);
 
@@ -62,20 +59,12 @@ const NGO_Track_Donations = () => {
                     <div key={donation._id} className="donation-item">
                         <div className="donation-header">
                             <h3 className="donor-name">{donation.userProfile.fullName}</h3>
-                            <div
-                                className="flex-container"
-                            >
-                                <p
-                                    className={`donation-status ${donation.RequestStatus === 'Accepted' ? 'status-accepted' : 'status-pending'
-                                        }`}
-                                >
+                            <div className="flex-container">
+                                <p className={`donation-status ${donation.RequestStatus === 'Accepted' ? 'status-accepted' : 'status-pending'}`}>
                                     {donation.RequestStatus}
                                 </p>
-                                <p
-                                    className="donation-status cancel-button"
-                                    onClick={() => handleCancel(donation._id)}
-                                >
-                                    Concel
+                                <p className="donation-status cancel-button" onClick={() => handleCancel(donation._id)}>
+                                    Cancel
                                 </p>
                             </div>
                         </div>
@@ -86,14 +75,14 @@ const NGO_Track_Donations = () => {
                                     <p className="form-value">{donation.type}</p>
                                 </div>
                                 <div className="col-md-6">
-                                    <label className="form-label">Quantity</label>
-                                    <p className="form-value">{donation.quantity}</p>
+                                    <label className="form-label">Weight</label>
+                                    <p className="form-value">{donation.weight} kg</p> {/* Updated from quantity to weight */}
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col-md-6">
-                                    <label className="form-label">Expiration Date</label>
-                                    <p className="form-value">{donation.expirationDate}</p>
+                                    <label className="form-label">Dimensions</label>
+                                    <p className="form-value">{donation.dimensions}</p> {/* New field for dimensions */}
                                 </div>
                                 <div className="col-md-6">
                                     <label className="form-label">Location</label>
@@ -120,6 +109,18 @@ const NGO_Track_Donations = () => {
                                 <div className="col-md-12">
                                     <label className="form-label">Pickup Instructions</label>
                                     <p className="form-value">{donation.pickupInstructions}</p>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <label className="form-label">Description</label>
+                                    <p className="form-value">{donation.description}</p> {/* New field for description */}
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <label className="form-label">Cancelled</label>
+                                    <p className="form-value">{donation.isCancelled ? 'Yes' : 'No'}</p> {/* Display cancellation status */}
                                 </div>
                             </div>
                         </div>

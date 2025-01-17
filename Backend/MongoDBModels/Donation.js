@@ -4,64 +4,69 @@ import mongoose from "mongoose";
 const donationSchema = new mongoose.Schema({
   type: {
     type: String,
-    required: true
+    required: true,
   },
   RequestStatus: {
     type: String,
     default: "Pending",
   },
-  quantity: {
-    type: Number, // Changed type to Number for quantity
-    required: true
+  weight: {
+    type: Number, // Updated field from quantity to weight
+    required: true,
   },
-  expirationDate: {
-    type: Date
+  dimensions: {
+    type: String, // New field for dimensions (e.g., "50x50x50 cm")
+    required: true,
+  },
+  description: {
+    type: String, // New field for a description of the donation
+    required: true,
   },
   pickupInstructions: {
-    type: String
+    type: String,
   },
   contactName: {
     type: String,
-    required: true
+    required: true,
   },
   contactEmail: {
     type: String,
-    required: true
+    required: true,
   },
   contactPhone: {
     type: String,
-    required: true
+    required: true,
   },
   location: {
     type: String,
-    required: true
+    required: true,
   },
   isCancelled: {
     type: Boolean,
-    default: false // Indicates whether the donation is cancelled
+    default: false, // Indicates whether the donation is cancelled
   },
   acceptedBy: {
     type: [mongoose.Schema.Types.ObjectId], // Array of NGO profile IDs
-    ref: 'UserProfile', // Reference to the UserProfile model
-    default: [] // Initially empty
+    ref: "UserProfile", // Reference to the UserProfile model
+    default: [], // Initially empty
   },
   createdAt: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   lastAcceptedBy: {
     type: mongoose.Schema.Types.ObjectId, // Points to the last NGO to accept
-    ref: 'UserProfile',
-    default: null // Initially null
+    ref: "UserProfile",
+    default: null, // Initially null
   },
   userProfile: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'UserProfile', // Reference to the UserProfile model
-    required: true
-  }
+    ref: "UserProfile", // Reference to the UserProfile model
+    required: true,
+  },
 });
 
 // Create donation model
-const Donation = mongoose.model('Donation', donationSchema);
+const Donation = mongoose.model("Donation", donationSchema);
 
 export default Donation;

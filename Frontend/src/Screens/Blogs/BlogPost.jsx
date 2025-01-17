@@ -4,7 +4,7 @@ import axios from 'axios';
 function BlogPost() {
   const [formData, setFormData] = useState({
     title: '',
-    author: '',
+    author: 'Random Author',
     content: ''
   });
 
@@ -49,18 +49,7 @@ function BlogPost() {
             required
           />
         </div>
-        <div className="mb-3">
-          <label htmlFor="author" className="form-label">Author</label>
-          <input
-            type="text"
-            className="form-control"
-            id="author"
-            name="author"
-            value={formData.author}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
+        
         <div className="mb-3">
           <label htmlFor="content" className="form-label">Content</label>
           <textarea

@@ -20,6 +20,7 @@ const Dashboard = () => {
             <Sidebar />
             <div
                 id='OutletComponent'
+                className='w-full overflow-hidden'
             >
                 <Outlet />
             </div>

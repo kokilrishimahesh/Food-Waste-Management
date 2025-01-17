@@ -70,28 +70,20 @@ strong {
   /* Add letter-spacing for a spaced-out look */
 }
 
-.donation-item {
-  border: 1px solid #ddd;
-  padding: 16px;
-  margin-bottom: 16px;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  /* Default background */
-}
+
 
 .donation-item.status-accepted {
   background-color: #d4edda;
-  /* Green background for accepted */
   border-color: #c3e6cb;
-  /* Green border for accepted */
+}
+
+.donation-item.status-pending {
+  background-color: #9b9b9b;
+  border-color: #666666;
 }
 
 .donation-item.status-cancelled {
   background-color: #f6b2b7;
-  /* Light red background */
-
-  /* Dark red text */
   border: 1px solid #f5c6cb;
-  /* Red border */
 }
 
