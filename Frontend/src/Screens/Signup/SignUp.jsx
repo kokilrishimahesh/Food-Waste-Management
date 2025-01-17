@@ -52,71 +52,73 @@ function SignupScreen() {
     };
 
     return (
-        <div
-            className='flex w-full h-screen'
+        <div className="flex items-center justify-center bg-gray-50"
+            style={{
+                width: '100vw',
+                height: '100vh'
+            }}
         >
+            <div className="bg-transparent p-6 rounded-lg  mx-auto mt-10"
+                style={{
+                    width: '500px',
+                    height: '700px'
+                }}
+            >
+                <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">Sign Up</h1>
+                <form
+                    onSubmit={handleSignup}
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '16px'
+                    }}
+                >
+                    <label className="text-gray-700 text-sm font-medium mb-2">Type of Role:</label>
+                    <select
+                        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        name="type"
+                        value={role}
+                        onChange={(e) => setRole(e.target.value)}
+                        required
+                    >
+                        <option value="">Select a role</option>
+                        <option value="NGO">NGO</option>
+                        <option value="User">User</option>
+                    </select>
 
-            <div className="bg-white max-w-3xl mx-auto">
-                <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Sign Up</h2>
-                <form onSubmit={handleSignup}>
-                    <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-medium mb-2">
-                            Type of Role:
-                        </label>
-                        <select
-                            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            name="type"
-                            value={role}
-                            onChange={(e) => setRole(e.target.value)}
-                            required
-                        >
-                            <option value="">Select a role</option>
-                            <option value="NGO">NGO</option>
-                            <option value="User">User</option>
-                        </select>
-                    </div>
-                    <div className="mb-4">
-                        <label htmlFor="username" className="block text-gray-700 text-sm font-medium mb-2">
-                            Username:
-                        </label>
-                        <input
-                            type="text"
-                            id="username"
-                            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label htmlFor="fullname" className="block text-gray-700 text-sm font-medium mb-2">
-                            Fullname:
-                        </label>
-                        <input
-                            type="text"
-                            id="fullname"
-                            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            value={fullname}
-                            onChange={(e) => setFullname(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="mb-6">
-                        <label htmlFor="password" className="block text-gray-700 text-sm font-medium mb-2">
-                            Password:
-                        </label>
-                        <input
-                            type="password"
-                            id="password"
-                            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                    </div>
+                    <label htmlFor="username" className="text-gray-700 text-sm font-medium mb-2">Username:</label>
+                    <input
+                        type="text"
+                        id="username"
+                        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        required
+                    />
+
+                    <label htmlFor="fullname" className="text-gray-700 text-sm font-medium mb-2">Fullname:</label>
+                    <input
+                        type="text"
+                        id="fullname"
+                        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        value={fullname}
+                        onChange={(e) => setFullname(e.target.value)}
+                        required
+                    />
+
+                    <label htmlFor="password" className="text-gray-700 text-sm font-medium mb-2">Password:</label>
+                    <input
+                        type="password"
+                        id="password"
+                        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+
                     <button
                         type="submit"
-                        className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors"
+                        className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors"
                     >
                         Sign Up
                     </button>
@@ -132,7 +134,6 @@ function SignupScreen() {
                 )}
             </div>
         </div>
-
     );
 }
 
