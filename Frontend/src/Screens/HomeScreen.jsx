@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CookingPot, Facebook, Twitter, Instagram, Linkedin,Soup,MonitorPlay,BookOpenText  } from "lucide-react";
+import { CookingPot, Facebook, Twitter, Instagram, Linkedin, Soup, MonitorPlay, BookOpenText } from "lucide-react";
 
 function HomeScreen() {
     return (
@@ -8,7 +8,7 @@ function HomeScreen() {
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <div className="container">
                     <CookingPot color="#3e9392" size={30} />
-                    <Link className="navbar-brand mx-2 headingColour" to="/">Food Waste Management</Link>
+                    <Link className="navbar-brand mx-2 headingColour" to="/">Donation Platform</Link>
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav ms-auto">
                             <li className="nav-item">
@@ -39,9 +39,9 @@ function HomeScreen() {
             <section id="hero" className="hero">
                 <div className="hero-background">
                     <div className='heroTextBackground container'>
-                        <div className="heroItems">
-                            <h1>Welcome to Our <br /> Food Waste Reduction System</h1>
-                            <p className="lead">We provide innovative solutions to manage food waste efficiently.</p>
+                        <div className="flex items-end justify-end">
+                            <h1>Welcome to Our Donation Platform</h1>
+                            <p className="lead">Donate items like food, clothing, electronics, and more to help those in need.</p>
                             <Link className="btn btn-primary btn-lg buttonColor" to="/signup">Get Started</Link>
                         </div>
                     </div>
@@ -57,31 +57,28 @@ function HomeScreen() {
                             <div className="card text-center">
                                 <div className="card-body">
                                     <Soup size={50} color="#3e9392" className="mb-3" />
-
                                     <h3 className="card-title">Donation Requests</h3>
-                                    <p className="card-text">Specify items for donation and send requests for pickup.</p>
+                                    <p className="card-text">Specify the items you want to donate and send requests for pickup or drop-off.</p>
                                 </div>
                             </div>
                         </div>
 
-                       
                         <div className="col-md-4">
                             <div className="card text-center">
                                 <div className="card-body">
-                                    <MonitorPlay size={50} color="#3e9392" className="mb-3"  />
-                                    <h3 className="card-title">Educational Videos</h3>
-                                    <p className="card-text">Access informative videos on food waste management.</p>
+                                    <MonitorPlay size={50} color="#3e9392" className="mb-3" />
+                                    <h3 className="card-title">Educational Resources</h3>
+                                    <p className="card-text">Access educational content on the importance of donations and how they make a difference.</p>
                                 </div>
                             </div>
                         </div>
 
-                 
                         <div className="col-md-4">
                             <div className="card text-center">
                                 <div className="card-body">
-                                    <BookOpenText  size={50} color="#3e9392" className="mb-3"/>
-                                    <h3 className="card-title">Blogs</h3>
-                                    <p className="card-text">Explore insightful blogs related to food waste reduction.</p>
+                                    <BookOpenText size={50} color="#3e9392" className="mb-3" />
+                                    <h3 className="card-title">Stories & Blogs</h3>
+                                    <p className="card-text">Read inspiring stories and blogs about how donations impact communities.</p>
                                 </div>
                             </div>
                         </div>
@@ -94,12 +91,12 @@ function HomeScreen() {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-8 offset-md-2 text-center">
-                            <h2 className="mb-4 headingColour">About Food Waste Management</h2>
+                            <h2 className="mb-4 headingColour">About Our Donation Platform</h2>
                             <p className="textColour">
-                                Food Waste Management is committed to leveraging technology to reduce food waste and promote sustainability. Our mission is to make a positive impact on the environment by providing innovative solutions.
+                                Our Donation Platform aims to bring people together by making it easier to donate food, clothing, electronics, and other items. We are committed to creating a world where everyone can contribute to helping those in need.
                             </p>
                             <p className='textColour'>
-                                We believe that every effort counts in the fight against food waste. By implementing efficient strategies and empowering individuals and businesses, we aim to create a more sustainable future.
+                                Our mission is to connect donors with organizations and people who need it most. Every donation, big or small, helps make a positive impact on the lives of others.
                             </p>
                         </div>
                     </div>
@@ -132,9 +129,7 @@ function HomeScreen() {
 
             <footer className="bg-dark">
                 <div className="container text-center">
-                    <p
-                        className='py-1'
-                    >&copy; 2024 Food Waste Management. All rights reserved.</p>
+                    <p className='py-1'>&copy; 2024 Donation Platform. All rights reserved.</p>
                     <ul className="list-inline">
                         <li className="list-inline-item">
                             <a href="#">
