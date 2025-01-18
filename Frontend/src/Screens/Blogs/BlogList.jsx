@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import './Blogs.css';
 
 function BlogList() {
   const [blogs, setBlogs] = useState([]);
+  const location = useLocation();
 
-  // Fetch blog list data from backend
+  // Determine the base path dynamically
+  const basePath = location.pathname.split('/').slice(0, -1).join('/');
+
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
         const response = await axios.get('http://localhost:3000/blogs');
-        // Sort blogs by createdAt field in descending order
         const sortedBlogs = response.data.sort((a, b) => {
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
@@ -34,7 +36,7 @@ function BlogList() {
               <div className="card-body">
                 <h5 className="card-title">{blog.title}</h5>
                 <p className="card-text">{new Date(blog.createdAt).toDateString()}</p>
-                <Link to={`/user/blogs/${blog._id}`} className="blogButton">
+                <Link to={`${basePath}/blogs/${blog._id}`} className="blogButton">
                   Read More
                 </Link>
               </div>

@@ -72,7 +72,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/ngo/",
+    path: "/ngo",
     element: <NgoDashboard />, // Placeholder, replace with NGO-specific dashboard if needed.
     children: [
       {
@@ -82,6 +82,22 @@ const router = createBrowserRouter([
       {
         path: "trackDonations",
         element: <NGO_Track_Donations />,
+      },
+      {
+        path: "blog",
+        element: <BlogHome />,
+      },
+      {
+        path: "blogPost",
+        element: <BlogPost />,
+      },
+      {
+        path: "blogs/:id",
+        element: <Blog />,
+      },
+      {
+        path: "blogList",
+        element: <BlogList />,
       },
     ],
   },

@@ -75,8 +75,8 @@ const NGO_Track_Donations = () => {
                                     <p className="form-value">{donation.type}</p>
                                 </div>
                                 <div className="col-md-6">
-                                    <label className="form-label">Weight</label>
-                                    <p className="form-value">{donation.weight} kg</p> {/* Updated from quantity to weight */}
+                                    <label className="form-label">Quantity</label>
+                                    <p className="form-value">{donation.weight}</p> {/* Updated from quantity to weight */}
                                 </div>
                             </div>
                             <div className="row">
@@ -115,12 +115,6 @@ const NGO_Track_Donations = () => {
                                 <div className="col-md-12">
                                     <label className="form-label">Description</label>
                                     <p className="form-value">{donation.description}</p> {/* New field for description */}
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col-md-12">
-                                    <label className="form-label">Cancelled</label>
-                                    <p className="form-value">{donation.isCancelled ? 'Yes' : 'No'}</p> {/* Display cancellation status */}
                                 </div>
                             </div>
                         </div>

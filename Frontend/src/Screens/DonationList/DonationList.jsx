@@ -85,7 +85,7 @@ const DonationsList = () => {
           <thead className="bg-gray-200 text-gray-700 uppercase text-sm">
             <tr>
               <th className="py-3 px-4">Type</th>
-              <th className="py-3 px-4">Weight (kg)</th>
+              <th className="py-3 px-4">Quantity</th>
               <th className="py-3 px-4">Dimensions</th>
               <th className="py-3 px-4">Status</th>
               <th className="py-3 px-4">Contact Name</th>

@@ -16,12 +16,6 @@ const NGO_Sidebar = () => {
     <div className="sidebar">
       <ul>
         <li>
-          <Link to="" className="sidebar-link">
-            <Home className="sidebar-icon" />
-            Home
-          </Link>
-        </li>
-        <li>
           <Link to="trackDonations" className="sidebar-link">
             <Eye className="sidebar-icon" />
             Track Donation Status

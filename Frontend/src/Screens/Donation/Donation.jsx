@@ -87,13 +87,13 @@ const DonationScreen = () => {
                   >
                     <option value="">Select a category</option>
                     <option value="Clothing">Clothing</option>
-                    <option value="Food">Food</option>
+                    <option value="Food">Furniture</option>
                     <option value="Electronics">Electronics</option>
                     <option value="Raw Ingredients">Raw Ingredients</option>
                   </select>
                 </div>
                 <div className="col-md-6">
-                  <label className="form-label">Weight (in kg):</label>
+                  <label className="form-label">Quantity</label>
                   <div className="input-group">
                     <button
                       className="btn btn-outline-secondary"

@@ -12,6 +12,8 @@ const NgoDashboard = () => {
 
         if (!isLoggedIn) {
             navigate('/login');
+        }else{
+            navigate("/ngo/trackDonations")
         }
     }, []);
 

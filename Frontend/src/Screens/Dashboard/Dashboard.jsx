@@ -13,6 +13,9 @@ const Dashboard = () => {
         if (!isLoggedIn) {
             navigate('/login');
         }
+        else {
+            navigate("/user/donation");
+        }
     }, []);
 
     return (
